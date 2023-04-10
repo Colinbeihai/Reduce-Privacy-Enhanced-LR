@@ -4,7 +4,6 @@ import gmpy2 as gp
 import numpy as np
 import time
 
-from gmpy2 import invert
 from utils import _param_generator
 from utils import _random_generator
 from utils import safeprimeGen
@@ -15,7 +14,6 @@ class FE:
 
         self.eta = eta
         self.sec_param = sec_param
-
 
         # self.p = safeprimeGen(self.sec_param // 2 + 4)
         # self.q = safeprimeGen(self.sec_param // 2 - 4)
@@ -41,8 +39,6 @@ class FE:
         #     19887110658100541788629990664619744684064090451301500104966027182928047913632029795501161842730698679131466844203906726591425977616152242188960432381626085544899023155982097073044048260524205517146941970751167240806934918675603854074487212986727038562330589629691887195532073753719037275635303236079940564517761262924085256443058061298584849403494947900362537334920233160281793930392896771871344818246616251911071312760672443573132761443458335256900504640954705088675618474233814395837488611204174611850222002027961058353158214682284967572646265133866964440058233673585595845660896952861927504023270140215644398523677]
         pk = [gp.powmod(self.g, self.msk[i], self.N2) for i in range(self.eta)]
         self.mpk = {'N': self.N, 'g': self.g, 'pk': pk}
-
-
 
     def generate_public_key(self):
         pk = list()
@@ -82,7 +78,7 @@ class FE:
                 gp.powmod(gp.mpz(ct['ct_list'][i]), gp.mpz(y[i]), self.N2)
             )
         res1 = gp.t_mod(res1, self.N2)
-        res2 = invert(gp.powmod(gp.mpz(ct['ct0']), gp.mpz(sk), self.N2), self.N2)
+        res2 = gp.invert(gp.powmod(gp.mpz(ct['ct0']), gp.mpz(sk), self.N2), self.N2)
         # res2 = gp.powmod(gp.mpz(ct['ct0']), gp.mpz(-sk), self.N2)
 
         tmp1 = gp.t_mod(gp.mul(res1, res2), self.N2)
@@ -97,15 +93,14 @@ class FE:
 
         return f
 
-d =7
+d = 7
 eta = d+2
 
-test = FE(eta,1024)
+test = FE(eta, 1024)
 
 max_value = math.floor(((test.N - 1/test.N) / eta) ** 0.5)
 x = [random.randint(0, max_value) for i in range(eta)]
 y = [random.randint(-max_value, max_value) for i in range(eta)]
-
 
 pk = test.generate_public_key()
 sk = test.generate_private_key(y)
