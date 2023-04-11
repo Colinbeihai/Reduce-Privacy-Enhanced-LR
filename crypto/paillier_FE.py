@@ -93,24 +93,24 @@ class FE:
 
         return f
 
-d = 7
-eta = d+2
-
-test = FE(eta, 1024)
-
-max_value = math.floor(((test.N - 1/test.N) / eta) ** 0.5)
-x = [random.randint(0, max_value) for i in range(eta)]
-y = [random.randint(-max_value, max_value) for i in range(eta)]
-
-pk = test.generate_public_key()
-sk = test.generate_private_key(y)
-
-T1 = time.perf_counter()
-ct = test.encrypt(pk, x)
-print("加密用时：", (eta-1)*(time.perf_counter() - T1))
-T2 = time.perf_counter()
-f = test.decrypt(sk, y, ct)
-print("解密用时：", (eta-1)*(time.perf_counter() - T2))
+# d = 7
+# eta = d+2
+#
+# test = FE(eta, 1024)
+#
+# max_value = math.floor(((test.N - 1/test.N) / eta) ** 0.5)
+# x = [random.randint(0, max_value) for i in range(eta)]
+# y = [random.randint(-max_value, max_value) for i in range(eta)]
+#
+# pk = test.generate_public_key()
+# sk = test.generate_private_key(y)
+#
+# T1 = time.perf_counter()
+# ct = test.encrypt(pk, x)
+# # print("加密用时：", (eta-1)*(time.perf_counter() - T1))
+# T2 = time.perf_counter()
+# f = test.decrypt(sk, y, ct)
+# # print("解密用时：", (eta-1)*(time.perf_counter() - T2))
 
 # print("p是：", test.p)
 # print("q是： ", test.q)
@@ -137,11 +137,11 @@ print("解密用时：", (eta-1)*(time.perf_counter() - T2))
 #
 # print("差值", error)
 
-T3 = time.perf_counter()
-f1 = pow(5, 5)
-# print("f1=：", f1)
-print("指数运算用时：", time.perf_counter() - T3)
-T4= time.perf_counter()
-f2 = 5*5
-# print("f2=：", f2)
-print("乘法运算用时：", time.perf_counter() - T4)
+# T3 = time.perf_counter()
+# f1 = pow(5, 5)
+# # print("f1=：", f1)
+# # print("指数运算用时：", time.perf_counter() - T3)
+# T4= time.perf_counter()
+# f2 = 5*5
+# # print("f2=：", f2)
+# # print("乘法运算用时：", time.perf_counter() - T4)
