@@ -17,9 +17,11 @@ def normalize_global():
     # print(f'before glo_norm{X}')
     return X
 
-pk = public_key()
-X_gnorm = normalize_global()
-for X_i in X_gnorm:
-    for i in range(len(X_i)):
-        en_X = TA.encrypt(pk, X_i.iloc[i])
-        X_i.iloc[i] = en_X
+def upload_data():
+    pk = public_key()
+    X_gnorm = normalize_global()
+    for X_i in X_gnorm:
+        for i in range(len(X_i)):
+            en_X = TA.encrypt(pk, X_i.iloc[i]) #返回的是字典
+            X_i.iloc[i] = en_X['ct_list']
+    return X_gnorm
