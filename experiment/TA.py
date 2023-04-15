@@ -1,5 +1,5 @@
 from crypto.paillier_FE import FE
-from DOs import *
+from DOs import get_MaxMinN
 import random
 import numpy as np
 
@@ -16,12 +16,22 @@ def public_key():
     '''
     return TA.generate_public_key()
 
-def master_key(y):
+def SKGenerate(y):
     '''
     分发主私钥给CSs,需要CS提供y
     :return: master key
     '''
     return TA.generate_private_key(y)
+
+def Decrypt(sk, y, ct):
+    """
+    CS2用来对聚合后的M逐行解密
+    :param sk: 功能私钥
+    :param y: 权重向量
+    :param ct: 加密后的值，字典类型，包含'ct0'和'ct_list'
+    :return:
+    """
+    return TA.decrypt(sk, y, ct)
 
 def get_GlobalMaxMin():
     """
@@ -43,7 +53,7 @@ def get_GlobalMaxMin():
     g_n = sum(N)
     return g_max, g_min, g_n
 
-def add_noise(max, min):
+def add_noise(max, min): # 添加噪声
     n = len(min)
     noise = [random.uniform(-0.05, 0.05) for _ in range(n)]
     max = np.add(max, noise)

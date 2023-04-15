@@ -21,13 +21,13 @@ def seperate_data():
     y = []
 
     # X1 = data.iloc[:n, :-1]
-    X1 = data.iloc[:n, :9] # 选取的维度要和FE中的eta一致
+    X1 = data.iloc[:n, :8] # 选取的维度要和FE中的eta一致
     y1 = data.iloc[:n, -1]
     X.append(X1)
     y.append(y1)
 
     # X2 = data.iloc[n:, :-1]
-    X2 = data.iloc[n:, :9] # 选取的维度要和FE中的eta一致
+    X2 = data.iloc[n:, :8] # 选取的维度要和FE中的eta一致
     y2 = data.iloc[n:, -1]
     X.append(X2)
     y.append(y2)
