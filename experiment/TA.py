@@ -16,6 +16,13 @@ def public_key():
     '''
     return TA.generate_public_key()
 
+def get_msk():
+    """
+    获得master secret key
+    :return: msk
+    """
+    return TA.msk
+
 def SKGenerate(y):
     '''
     分发主私钥给CSs,需要CS提供y
@@ -75,3 +82,11 @@ def total_samples():
     """
     _, _, g_n = get_GlobalMaxMin()
     return g_n
+
+########避免循环引入#####
+def get_skf(cita):
+    '''
+    CS1由cita向量生成功能密钥，随后给CS2
+    :return: 功能密钥skf
+    '''
+    return SKGenerate(cita)
