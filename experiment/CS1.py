@@ -10,7 +10,7 @@ import pandas as pd
 
 num = total_samples()
 d = 7
-l = 30 # 迭代训练次数
+l = 5 # 迭代训练次数
 
 cita = np.zeros(d + 1, dtype=int)
 cita = np.append(cita, -1)
@@ -44,7 +44,7 @@ def iterration_updata():
     :return:
     '''
     global cita
-    for _ in range(l):
+    for i in range(l):
         delta = get_delta(cita)
         cita[:d+1] = np.subtract(cita[:d+1], delta)
         print(cita)

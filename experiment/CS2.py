@@ -36,8 +36,7 @@ def decrypt_inner_product(cita):
     M = re_aggregation()
     msk = get_msk()
     skf = get_skf(weight) # 从CS1处获取由权重向量生成的功能密钥
-    if r==0:
-        r = r * np.ones(len(msk), dtype=int)
+    r = r if isinstance(r, list) else np.zeros(len(msk), dtype=int) # 若r为初始化的0值，则将其扩展为矩阵
     skf = skf + np.dot(r, msk)
     de_M = []
     for i in range(M.shape[0]): # 按照DF的行遍历
@@ -57,6 +56,7 @@ def send_blind_result(cita):
     r = [random.randint(-10, 10) for _ in range(len(m_cita))]
     delta = [x * (alpha/n) for x in m_cita]
     delta = np.add(delta, r)
+    r = np.append(r, -1) # 对r的维度修正
     return delta
 
 def get_delta(cita):
