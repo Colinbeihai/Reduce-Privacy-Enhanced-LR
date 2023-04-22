@@ -4,13 +4,11 @@ import pandas as pd
 from DOs import *
 from TA import *
 
-def normalize_global():
+def normalize_global(X):
     """
     根据全局最大最小值对每个用户的数据进行归一化
     :return: 全局归一化之后数据
     """
-    X, _ = seperate_data()
-    # print(f'before glo_norm{X}')
     g_max, g_min = XMax_Xmin()  #得到的最大最小值包含小噪声
     wide = []
     for i in range(len(g_max)):
@@ -21,7 +19,6 @@ def normalize_global():
         for i in range(len(data.columns)):
             data.iloc[:, i] = (data.iloc[:, i] - g_min[i]) / wide[i]
         X[num] = data
-    # print(f'before glo_norm{X}')
     return X
 
 def extend_sample(sample):
@@ -90,6 +87,41 @@ def encrypt_data():
         en_M.append(en_Mi)
     return en_M
 
+def encrypt_query(xi):
+    '''
+    给QU用户加密数据
+    :return: 加密后的数据
+    '''
+    pk = public_key()
+
+    Mi = []
+    for row in xi.iterrows():
+        sample = list(row[1])  # iterrows()的用法，返回元组，row[0]是行号，row[1]是对应数据
+        Mik = extend_sample(sample)
+        Mi.append(Mik)
+    M = Mi
+
+    c = 1000  # 常数，将小数转为整数用
+
+    mi = pd.DataFrame(np.zeros(M[0].shape),
+                      columns=M[0].columns, index=M[0].index)
+    for Mik in M:
+        mi = mi.add(Mik)  # 将三位矩阵中二维矩阵对应元素相加，得到求和后的二维矩阵
+    en_Mi = []
+    for row in mi.iterrows():
+        plain = list(row[1])
+        # 将mi由有理数转为整型，通过乘一个大数再取整完成
+        plain = np.multiply(plain, c)
+        plain = list(map(int, plain))
+        # 转换整数之后按行加密
+        cipher = TA.encrypt(pk, plain)
+        gr = cipher['ct0']
+        en = list(cipher['ct_list'])
+        en.insert(0, gr)
+        en_Mi.append(en)
+    en_M = en_Mi
+    return en_M
+
 def upload_data():
     """
     上传密文数据
@@ -97,3 +129,10 @@ def upload_data():
     """
     cipher_data = encrypt_data()
     return cipher_data
+
+
+# # test
+def test():
+    data = pd.read_csv('../datasets/winequality-red.csv', sep=';')
+    unlabled = data.iloc[20:30, :8]
+    en_data = encrypt_query(unlabled)

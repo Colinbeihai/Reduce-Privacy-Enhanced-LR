@@ -10,20 +10,19 @@ import pandas as pd
 
 num = total_samples()
 d = 7
-l = 5 # 迭代训练次数
+l = 20 # 迭代训练次数
 
 cita = np.zeros(d + 1, dtype=int)
 cita = np.append(cita, -1)
 
-def deliever_cita():
+def deliver_cita():
     '''
     把cita给CS2,我认为这里不对,若给CS2,不需要自己给它生成功能密钥
     :return: 权重向量cita
     '''
-    cita = initialize_cita()
     return cita # 注:做了修改,改为形参传递,此处留着仅便于调试
 
-def get_skf(cita):
+def get_skf():
     '''
     CS1由cita向量生成功能密钥，随后给CS2
     :return: 功能密钥skf
@@ -38,6 +37,7 @@ def initialize_cita():
     cita = np.zeros(d + 1, dtype=int)
     cita = np.append(cita, -1)
     return cita
+
 def iterration_updata():
     '''
     迭代训练权重向量
@@ -49,4 +49,10 @@ def iterration_updata():
         cita[:d+1] = np.subtract(cita[:d+1], delta)
         print(cita)
 
-iterration_updata()
+    # 将列表转换为DataFrame对象
+    df = pd.DataFrame(cita)
+    # 将DataFrame对象保存到本地
+    df.to_csv("cita.csv", sep=';', index=False)
+
+if __name__ == '__main__':
+    iterration_updata()
