@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 from DOs_normalize import encrypt_query
 # from CS1 import deliver_cita
-from CS2 import decrypt_query
+from CS import decrypt_query
 
 def prepare_unlabled():
     data = pd.read_csv('../datasets/winequality-red.csv', sep=';')

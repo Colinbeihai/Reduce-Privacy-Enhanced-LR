@@ -11,17 +11,6 @@ def _random(bits, maximum):
     return r
 
 
-# def _random_prime(bits):
-#     rand_function = random.SystemRandom()
-#     while True:
-#         a = gp.mpz(rand_function.getrandbits(bits))
-#         for i in range(2, a):
-#             if a % i == 0:
-#                 break
-#             else:
-#                 return a
-
-
 def _random_prime(bits):
     rand_function = random.SystemRandom()
     a = gp.mpz(rand_function.getrandbits(bits))
@@ -33,52 +22,21 @@ def _random_prime(bits):
     return a
 
 
-# def _param_generator(bits):
-#     while True:
-#         p = _random_prime(bits)
-#         q = (p - 1) // 2
-#         N = p * q
-#         if (p > 200 and                           # p q 选择不能太小
-#                 N < 2 ** bits and
-#                 gp.is_prime(q) and
-#                 gp.is_prime(gp.mpz((p-1)/2)) and
-#                 gp.is_prime(gp.mpz((q-1)/2))
-#         ):
-#             break
-#         else:
-#             p = _random_prime(bits)
-#     return p, q, N
-
-
-# def _param_generator(bits):
-#     p = _random_prime(math.floor(bits / 2 + 1))      #安全参数取1024时，令p和q相差8比特左右
-#     q = _random_prime(math.floor(bits / 2 - 1))
-#     while True:
-#         if gp.is_prime(gp.mpz((p-1)/2)) and gp.is_prime(gp.mpz((q-1)/2)):
-#             break
-#         else:
-#             p = _random_prime(math.floor(bits / 2 + 1))
-#             q = _random_prime(math.floor(bits / 2 - 1))
-#     N = p * q
-#     return p, q, N
-
 def _param_generator(bits):
-    p = _random_prime(bits)      #安全参数取1024时，令p和q相差8比特左右
+    p = _random_prime(bits)  # 安全参数取1024时，令p和q相差8比特左右
     while True:
-        if gp.is_prime(gp.mpz((p-1)/2)):
+        if gp.is_prime(gp.mpz((p - 1) / 2)):
             break
         else:
             p = _random_prime(bits)
     return p
 
 
-
-
 def _random_generator(N):
     while True:
-        a = random.randint(1, (N**2) - 1)
-        if gp.gcd(a, N**2) == 1:
-            g = gp.powmod(a, 2*N, N**2)
+        a = random.randint(1, (N ** 2) - 1)
+        if gp.gcd(a, N ** 2) == 1:
+            g = gp.powmod(a, 2 * N, N ** 2)
             if not g == 1:
                 break
     return g
