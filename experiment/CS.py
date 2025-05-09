@@ -45,7 +45,7 @@ class CloudSever:
         for i in range(M.shape[0]):  # 按照DF的行遍历
             ct = {'ct0': M.iloc[i, 0], 'ct_list': list(M.iloc[i, 1:])}
             y = self.cita  # 这里的y是cita（权重向量）
-            de_m = TA.Decrypt(skf, y, ct)  # 疑惑 skf根据cita生成的，并且CS1也有msk，cita也传过去，那就无需生成skf了
+            de_m = TA.Decrypt(skf, y, ct)
             de_M.append(de_m)
         return de_M
 
