@@ -1,5 +1,7 @@
 # 非交互的隐私保护线性回归算法
 
+### 关键词：paillier加密 密文训练 联邦学习
+
 ### 一种基于密文训练的联邦学习线性回归模型
 算法示意图
 ![image](https://github.com/user-attachments/assets/bf898dd2-ac5e-4ad3-bd38-4e797ac1a583)
@@ -7,6 +9,7 @@
 
 ### 如何使用
 程序入口在 experiment/SystemModel.py，项目框架图为
+
 project/
 
 ├── crypto/
