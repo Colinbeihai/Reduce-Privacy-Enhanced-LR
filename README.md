@@ -41,7 +41,5 @@ project/
 
 在确保数据隐私的情况下，计算时间和通信开销在多个数据集上的表现都有显著提升
 
-![image](https://github.com/user-attachments/assets/f5ea2753-a08c-4ed0-adf0-ee532c764ec3)
-
-
+![image](https://github.com/user-attachments/assets/8828e3e1-587a-404b-92c4-f354bfb8b30a)
 
