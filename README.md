@@ -3,8 +3,9 @@
 ## paillier加密 密文训练
 
 ### 一种基于密文训练的联邦学习线性回归算法
-算法示意图
-![image](https://github.com/user-attachments/assets/bf898dd2-ac5e-4ad3-bd38-4e797ac1a583)
+
+![image](https://github.com/user-attachments/assets/df548be2-a34f-447b-b903-df8a38225375)
+
 
 
 ### 如何使用
@@ -35,3 +36,12 @@ project/
 │   ├── cita.csv         <--供存储模型参数
 
 └── utils.py             <--密码学相关工具
+
+### 方案对比
+
+在确保数据隐私的情况下，计算时间和通信开销在多个数据集上的表现都有显著提升
+
+![image](https://github.com/user-attachments/assets/f5ea2753-a08c-4ed0-adf0-ee532c764ec3)
+
+
+
